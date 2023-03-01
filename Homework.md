@@ -460,4 +460,142 @@ INSERT INTO "vets" ("age","email","name","sex","specialities","inserted_at","upd
    inserted_at: ~N[2023-03-01 17:16:59],
    updated_at: ~N[2023-03-01 17:16:59]
  }}
+
+
+## Relate Pet-PetType
+iex(3)> Repo.all(Pet) |> Repo.preload(:type)
+[debug] QUERY OK source="pets" db=2.1ms queue=0.2ms idle=1601.0ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."owner_id", p0."preferred_expert_id", p0."type_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 []
+↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
+[debug] QUERY OK source="pet_types" db=1.3ms queue=1.4ms idle=1644.8ms
+SELECT p0."id", p0."name", p0."inserted_at", p0."updated_at", p0."id" FROM "pet_types" AS p0 WHERE (p0."id" = ANY($1)) [[2, 1]]
+↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
+[
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 2,
+    age: 8,
+    name: "Mish Tata",
+    sex: :female,
+    owner_id: nil,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 1,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 1,
+      name: "Cat",
+      inserted_at: ~N[2023-03-01 22:19:14],
+      updated_at: ~N[2023-03-01 22:19:14]
+    },
+    inserted_at: ~N[2023-03-01 00:10:39],
+    updated_at: ~N[2023-03-01 00:10:39]
+  },
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 4,
+    age: 3,
+    name: "Puguie",
+    sex: :male,
+    owner_id: nil,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 2,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      name: "Dog",
+      inserted_at: ~N[2023-03-01 22:19:15],
+      updated_at: ~N[2023-03-01 22:19:15]
+    },
+    inserted_at: ~N[2023-03-01 00:11:58],
+    updated_at: ~N[2023-03-01 00:11:58]
+  },
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 5,
+    age: 1,
+    name: "Tobby",
+    sex: :male,
+    owner_id: nil,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 2,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      name: "Dog",
+      inserted_at: ~N[2023-03-01 22:19:15],
+      updated_at: ~N[2023-03-01 22:19:15]
+    },
+    inserted_at: ~N[2023-03-01 00:12:21],
+    updated_at: ~N[2023-03-01 00:12:21]
+  },
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 3,
+    age: 1,
+    name: "Haru",
+    sex: :male,
+    owner_id: 1,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 1,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 1,
+      name: "Cat",
+      inserted_at: ~N[2023-03-01 22:19:14],
+      updated_at: ~N[2023-03-01 22:19:14]
+    },
+    inserted_at: ~N[2023-03-01 00:10:58],
+    updated_at: ~N[2023-03-01 01:13:58]
+  },
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 1,
+    age: 7,
+    name: "Mora",
+    sex: :female,
+    owner_id: nil,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: 2,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 2,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      name: "Dog",
+      inserted_at: ~N[2023-03-01 22:19:15],
+      updated_at: ~N[2023-03-01 22:19:15]
+    },
+    inserted_at: ~N[2023-03-01 00:10:01],
+    updated_at: ~N[2023-03-01 16:53:27]
+  },
+  %PetClinic.PetClinicServer.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    id: 8,
+    age: 4,
+    name: "Xolo",
+    sex: :male,
+    owner_id: nil,
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    preferred_expert_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    type_id: 2,
+    type: %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      name: "Dog",
+      inserted_at: ~N[2023-03-01 22:19:15],
+      updated_at: ~N[2023-03-01 22:19:15]
+    },
+    inserted_at: ~N[2023-03-01 16:56:59],
+    updated_at: ~N[2023-03-01 16:56:59]
+  }
+]
 ```
