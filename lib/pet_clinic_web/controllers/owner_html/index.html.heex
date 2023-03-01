@@ -1,0 +1,26 @@
+<.header>
+  Listing Owners
+  <:actions>
+    <.link href={~p"/owners/new"}>
+      <.button>New Owner</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="owners" rows={@owners} row_click={&JS.navigate(~p"/owners/#{&1}")}>
+  <:col :let={owner} label="Name"><%= owner.name %></:col>
+  <:col :let={owner} label="Age"><%= owner.age %></:col>
+  <:col :let={owner} label="Email"><%= owner.email %></:col>
+  <:col :let={owner} label="Phone num"><%= owner.phone_num %></:col>
+  <:action :let={owner}>
+    <div class="sr-only">
+      <.link navigate={~p"/owners/#{owner}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/owners/#{owner}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={owner}>
+    <.link href={~p"/owners/#{owner}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

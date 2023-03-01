@@ -1,0 +1,18 @@
+<.header>
+  Vet <%= @vet.id %>
+  <:subtitle>This is a vet record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/vets/#{@vet}/edit"}>
+      <.button>Edit vet</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @vet.name %></:item>
+  <:item title="Age"><%= @vet.age %></:item>
+  <:item title="Email"><%= @vet.email %></:item>
+  <:item title="Specialities"><%= @vet.specialities %></:item>
+</.list>
+
+<.back navigate={~p"/vets"}>Back to vets</.back>

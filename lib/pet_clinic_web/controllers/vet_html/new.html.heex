@@ -1,0 +1,19 @@
+<.header>
+  New Vet
+  <:subtitle>Use this form to manage vet records in your database.</:subtitle>
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/vets"}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:name]} type="text" label="Name" />
+  <.input field={f[:age]} type="number" label="Age" />
+  <.input field={f[:email]} type="text" label="Email" />
+  <.input field={f[:specialities]} type="text" label="Specialities" />
+  <:actions>
+    <.button>Save Vet</.button>
+  </:actions>
+</.simple_form>
+
+<.back navigate={~p"/vets"}>Back to vets</.back>

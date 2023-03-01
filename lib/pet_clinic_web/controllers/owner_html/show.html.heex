@@ -1,0 +1,18 @@
+<.header>
+  Owner <%= @owner.id %>
+  <:subtitle>This is a owner record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/owners/#{@owner}/edit"}>
+      <.button>Edit owner</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @owner.name %></:item>
+  <:item title="Age"><%= @owner.age %></:item>
+  <:item title="Email"><%= @owner.email %></:item>
+  <:item title="Phone num"><%= @owner.phone_num %></:item>
+</.list>
+
+<.back navigate={~p"/owners"}>Back to owners</.back>

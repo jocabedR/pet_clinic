@@ -1,0 +1,26 @@
+<.header>
+  Listing Vets
+  <:actions>
+    <.link href={~p"/vets/new"}>
+      <.button>New Vet</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="vets" rows={@vets} row_click={&JS.navigate(~p"/vets/#{&1}")}>
+  <:col :let={vet} label="Name"><%= vet.name %></:col>
+  <:col :let={vet} label="Age"><%= vet.age %></:col>
+  <:col :let={vet} label="Email"><%= vet.email %></:col>
+  <:col :let={vet} label="Specialities"><%= vet.specialities %></:col>
+  <:action :let={vet}>
+    <div class="sr-only">
+      <.link navigate={~p"/vets/#{vet}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/vets/#{vet}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={vet}>
+    <.link href={~p"/vets/#{vet}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

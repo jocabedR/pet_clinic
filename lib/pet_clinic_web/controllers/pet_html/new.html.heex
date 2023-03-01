@@ -1,0 +1,19 @@
+<.header>
+  New Pet
+  <:subtitle>Use this form to manage pet records in your database.</:subtitle>
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/pets"}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:name]} type="text" label="Name" />
+  <.input field={f[:age]} type="number" label="Age" />
+  <.input field={f[:type]} type="text" label="Type" />
+  <.input field={f[:sex]} type="text" label="Sex" />
+  <:actions>
+    <.button>Save Pet</.button>
+  </:actions>
+</.simple_form>
+
+<.back navigate={~p"/pets"}>Back to pets</.back>
