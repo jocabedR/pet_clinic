@@ -278,7 +278,7 @@ SELECT v0."id", v0."age", v0."email", v0."name", v0."specialities", v0."inserted
 }
 
 
-## ADDING ASSOCIASIONS Pet-Owner
+## ADDING ASSOCIATIONS Pet-Owner
 iex> import Ecto.Changeset
 
 iex> pet = Repo.get_by(Pet, name: "Haru") |> Repo.preload(:owner)
@@ -321,7 +321,7 @@ commit []
  }}
 
 
-## ADDING ASSOCIASIONS Pet-Vet
+## ADDING ASSOCIATIONS Pet-Vet
 iex> pet = Repo.get_by(Pet, name: "Mora") |> Repo.preload(:preferred_expert)        
 iex> vet  = Repo.get_by(Vet, name: "Esther") |> Repo.preload(:patients)
 iex> chaset = pet |> change |> put_assoc(:preferred_expert, vet)                    
@@ -361,9 +361,9 @@ commit []
    updated_at: ~N[2023-03-01 16:53:27]
  }}
 
-## Charset validations
-iex(2)> changeset = Pet.changeset(%Pet{}, %{age: 201})                          #Ecto.
-iex(3)> {:error, changeset} = Repo.insert(changeset)
+## ADDING charset VALIDATIONS
+iex> changeset = Pet.changeset(%Pet{}, %{age: 201})                          #Ecto.
+iex> {:error, changeset} = Repo.insert(changeset)
 {:error,
  #Ecto.Changeset<
    action: :insert,
@@ -378,9 +378,9 @@ iex(3)> {:error, changeset} = Repo.insert(changeset)
    valid?: false
  >}
 
-iex(5)> changeset = Pet.changeset(%Pet{}, %{age: -201})
-iex(6)> {:error, changeset} = Repo.insert(changeset)   
-iex(7)> changeset.errors
+iex> changeset = Pet.changeset(%Pet{}, %{age: -201})
+iex> {:error, changeset} = Repo.insert(changeset)   
+iex> changeset.errors
 [
   age: {"is invalid", [validation: :inclusion, enum: 0..200]},
   name: {"can't be blank", [validation: :required]},
@@ -388,9 +388,9 @@ iex(7)> changeset.errors
   sex: {"can't be blank", [validation: :required]}
 ]
 
-iex(8)> changeset = Owner.changeset(%Owner{}, %{age: -201})
-iex(9)> {:error, changeset} = Repo.insert(changeset)       
-iex(10)> changeset.errors                                   
+iex> changeset = Owner.changeset(%Owner{}, %{age: -201})
+iex> {:error, changeset} = Repo.insert(changeset)       
+iex> changeset.errors                                   
 [
   age: {"is invalid", [validation: :inclusion, enum: 0..120]},
   name: {"can't be blank", [validation: :required]},
@@ -399,10 +399,10 @@ iex(10)> changeset.errors
 ]
 
 
-## Sex Pet
+## ENUM Pet sex field
 
-iex(8)> pet = %Pet{name: "Xolo", type: "Dog", age: 4, sex: "male"}
-iex(9)> Repo.insert(pet)                                          
+iex> pet = %Pet{name: "Xolo", type: "Dog", age: 4, sex: "male"}
+iex> Repo.insert(pet)                                          
 ** (Ecto.ChangeError) value `"male"` for `PetClinic.PetClinicServer.Pet.sex` in `insert` does not match type {:parameterized, Ecto.Enum, %{embed_as: :self, mappings: [male: "male", female: "female"], on_cast: %{"female" => :female, "male" => :male}, on_dump: %{female: "female", male: "male"}, on_load: %{"female" => :female, "male" => :male}, type: :string}}
     (ecto 3.9.4) lib/ecto/repo/schema.ex:1010: Ecto.Repo.Schema.dump_field!/6
     (ecto 3.9.4) lib/ecto/repo/schema.ex:1019: anonymous fn/6 in Ecto.Repo.Schema.dump_fields!/5
@@ -410,8 +410,8 @@ iex(9)> Repo.insert(pet)
     (ecto 3.9.4) lib/ecto/repo/schema.ex:1017: Ecto.Repo.Schema.dump_fields!/5
     (ecto 3.9.4) lib/ecto/repo/schema.ex:951: Ecto.Repo.Schema.dump_changes!/7
     (ecto 3.9.4) lib/ecto/repo/schema.ex:359: anonymous fn/15 in Ecto.Repo.Schema.do_insert/4
-iex(9)> pet = %Pet{name: "Xolo", type: "Dog", age: 4, sex: :male} 
-iex(10)> Repo.insert(pet)                                         
+iex> pet = %Pet{name: "Xolo", type: "Dog", age: 4, sex: :male} 
+iex> Repo.insert(pet)                                         
 [debug] QUERY OK db=7.5ms queue=2.9ms idle=1946.8ms
 INSERT INTO "pets" ("age","name","sex","type","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "id" [4, "Xolo", :male, "Dog", ~N[2023-03-01 16:56:59], ~N[2023-03-01 16:56:59]]
 ↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
@@ -431,9 +431,9 @@ INSERT INTO "pets" ("age","name","sex","type","inserted_at","updated_at") VALUES
    updated_at: ~N[2023-03-01 16:56:59]
  }}
 
-## Sex Vet
-iex(4)> vet = %Vet{name: "Dogtora", age: 25, email: "dogtora@vet.com", specialities: "Dog", sex: "feeemale"}
-iex(5)> Repo.insert(vet)                                                                                    
+## ENUM Vet sex field
+iex> vet = %Vet{name: "Dogtora", age: 25, email: "dogtora@vet.com", specialities: "Dog", sex: "feeemale"}
+iex> Repo.insert(vet)                                                                                    
 ** (Ecto.ChangeError) value `"feeemale"` for `PetClinic.PetClinicServer.Vet.sex` in `insert` does not match type {:parameterized, Ecto.Enum, %{embed_as: :self, mappings: [male: "male", female: "female"], on_cast: %{"female" => :female, "male" => :male}, on_dump: %{female: "female", male: "male"}, on_load: %{"female" => :female, "male" => :male}, type: :string}}
     (ecto 3.9.4) lib/ecto/repo/schema.ex:1010: Ecto.Repo.Schema.dump_field!/6
     (ecto 3.9.4) lib/ecto/repo/schema.ex:1019: anonymous fn/6 in Ecto.Repo.Schema.dump_fields!/5
@@ -442,8 +442,8 @@ iex(5)> Repo.insert(vet)
     (ecto 3.9.4) lib/ecto/repo/schema.ex:951: Ecto.Repo.Schema.dump_changes!/7
     (ecto 3.9.4) lib/ecto/repo/schema.ex:359: anonymous fn/15 in Ecto.Repo.Schema.do_insert/4
 
-iex(5)> vet = %Vet{name: "Dogtora", age: 25, email: "dogtora@vet.com", specialities: "Dog", sex: :female}   
-iex(6)> Repo.insert(vet)                                                                                 
+iex> vet = %Vet{name: "Dogtora", age: 25, email: "dogtora@vet.com", specialities: "Dog", sex: :female}   
+iex> Repo.insert(vet)                                                                                 
 [debug] QUERY OK db=5.5ms queue=2.7ms idle=1838.0ms
 INSERT INTO "vets" ("age","email","name","sex","specialities","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id" [25, "dogtora@vet.com", "Dogtora", :female, "Dog", ~N[2023-03-01 17:16:59], ~N[2023-03-01 17:16:59]]
 ↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
@@ -462,8 +462,8 @@ INSERT INTO "vets" ("age","email","name","sex","specialities","inserted_at","upd
  }}
 
 
-## Relate Pet-PetType
-iex(3)> Repo.all(Pet) |> Repo.preload(:type)
+## Pet-PetType ASSOCIATION
+iex> Repo.all(Pet) |> Repo.preload(:type)
 [debug] QUERY OK source="pets" db=2.1ms queue=0.2ms idle=1601.0ms
 SELECT p0."id", p0."age", p0."name", p0."sex", p0."owner_id", p0."preferred_expert_id", p0."type_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 []
 ↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
@@ -598,4 +598,54 @@ SELECT p0."id", p0."name", p0."inserted_at", p0."updated_at", p0."id" FROM "pet_
     updated_at: ~N[2023-03-01 16:56:59]
   }
 ]
+
+## Vet-ExpertSpeciality ASSOCIATION (many_to_many)
+Repo.get_by(Vet, name: "Esther")  |> Repo.preload(:expert_specialities)
+[debug] QUERY OK source="vets" db=1.5ms queue=3.7ms idle=1807.3ms
+SELECT v0."id", v0."age", v0."email", v0."name", v0."sex", v0."inserted_at", v0."updated_at" FROM "vets" AS v0 WHERE (v0."name" = $1) ["Esther"]
+↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
+[debug] QUERY OK source="pet_types" db=2.6ms queue=0.1ms idle=1813.2ms
+SELECT p0."id", p0."name", p0."inserted_at", p0."updated_at", e1."vet_id"::bigint FROM "pet_types" AS p0 INNER JOIN "expert_specialities" AS e1 ON p0."id" = e1."pet_type_id" WHERE (e1."vet_id" = ANY($1)) ORDER BY e1."vet_id"::bigint [[2]]
+↳ :erl_eval.do_apply/7, at: erl_eval.erl:744
+%PetClinic.PetClinicServer.Vet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "vets">,
+  id: 2,
+  age: 22,
+  email: "esther@vet.com",
+  name: "Esther",
+  sex: nil,
+  patients: #Ecto.Association.NotLoaded<association :patients is not loaded>,
+  expert_specialities: [
+    %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 1,
+      name: "Cat",
+      inserted_at: ~N[2023-03-01 22:19:14],
+      updated_at: ~N[2023-03-01 22:19:14]
+    },
+    %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      name: "Dog",
+      inserted_at: ~N[2023-03-01 22:19:15],
+      updated_at: ~N[2023-03-01 22:19:15]
+    },
+    %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 3,
+      name: "Bird",
+      inserted_at: ~N[2023-03-02 13:38:29],
+      updated_at: ~N[2023-03-02 13:38:29]
+    },
+    %PetClinic.PetClinicServer.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 4,
+      name: "Fish",
+      inserted_at: ~N[2023-03-02 13:38:57],
+      updated_at: ~N[2023-03-02 13:38:57]
+    }
+  ],
+  inserted_at: ~N[2023-03-01 00:14:08],
+  updated_at: ~N[2023-03-01 00:14:08]
+}
 ```
