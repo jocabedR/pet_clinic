@@ -34,7 +34,8 @@ defmodule PetClinicWeb.VetController do
   def edit(conn, %{"id" => id}) do
     vet = PetClinicServer.get_vet!(id)
     changeset = PetClinicServer.change_vet(vet)
-    render(conn, :edit, vet: vet, changeset: changeset)
+    pet_types = PetClinicServer.list_pet_types()
+    render(conn, :edit, vet: vet, changeset: changeset, pet_types: pet_types)
   end
 
   def update(conn, %{"id" => id, "vet" => vet_params}) do

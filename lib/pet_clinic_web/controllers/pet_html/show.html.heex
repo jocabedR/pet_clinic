@@ -11,8 +11,11 @@
 <.list>
   <:item title="Name"><%= @pet.name %></:item>
   <:item title="Age"><%= @pet.age %></:item>
-  <:item title="Type"><%= @pet.type %></:item>
+  <:item title="Type"><%= @pet.type.name %></:item>
   <:item title="Sex"><%= @pet.sex %></:item>
+  <:item title="Owner"><%= @owner.name %></:item>
+  <:item title="Preferred Expert"><%= @vet.name %></:item>
+
 </.list>
 
 <.back navigate={~p"/pets"}>Back to pets</.back>

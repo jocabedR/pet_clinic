@@ -9,8 +9,31 @@
   </.error>
   <.input field={f[:name]} type="text" label="Name" />
   <.input field={f[:age]} type="number" label="Age" />
-  <.input field={f[:type]} type="text" label="Type" />
-  <.input field={f[:sex]} type="text" label="Sex" />
+  <.input
+    field={f[:type_id]}
+    type="select"
+    label="Type"
+    options={Enum.map(@pet_types, fn pt -> {pt.name, pt.id} end)}
+  />
+  <.input
+    field={f[:owner_id]}
+    type="select"
+    label="Owner"
+    options={Enum.map(@owners, fn o -> {o.name, o.id} end)}
+  />
+  <.input
+    field={f[:preferred_expert_id]}
+    type="select"
+    label="Preferred Expert"
+    options={Enum.map(@vets, fn v -> {v.name, v.id} end)}
+  />
+  <.input
+    field={f[:sex]}
+    type="select"
+    label="Sex"
+    options={[{"Male", :male}, {"Female", :female}]}
+  />
+
   <:actions>
     <.button>Save Pet</.button>
   </:actions>

@@ -11,7 +11,11 @@
   <:col :let={vet} label="Name"><%= vet.name %></:col>
   <:col :let={vet} label="Age"><%= vet.age %></:col>
   <:col :let={vet} label="Email"><%= vet.email %></:col>
-  <:col :let={vet} label="Specialities"><%= vet.specialities %></:col>
+  <:col :let={vet} label="Specialities"><%=
+    vet.expert_specialities
+    |> Enum.map(fn speciality -> speciality.name end)
+    |> Enum.reduce(fn name, acc -> name <> ", " <> acc end)
+  %></:col>
   <:action :let={vet}>
     <div class="sr-only">
       <.link navigate={~p"/vets/#{vet}"}>Show</.link>

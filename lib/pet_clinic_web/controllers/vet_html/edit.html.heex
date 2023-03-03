@@ -10,7 +10,12 @@
   <.input field={f[:name]} type="text" label="Name" />
   <.input field={f[:age]} type="number" label="Age" />
   <.input field={f[:email]} type="text" label="Email" />
-  <.input field={f[:specialities]} type="text" label="Specialities" />
+  <.input
+    field={f[:sex]}
+    type="select"
+    label="Sex"
+    options={[{"Male", :male}, {"Female", :female}]}
+  />
   <:actions>
     <.button>Save Vet</.button>
   </:actions>

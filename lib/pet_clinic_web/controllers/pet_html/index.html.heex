@@ -10,7 +10,7 @@
 <.table id="pets" rows={@pets} row_click={&JS.navigate(~p"/pets/#{&1}")}>
   <:col :let={pet} label="Name"><%= pet.name %></:col>
   <:col :let={pet} label="Age"><%= pet.age %></:col>
-  <:col :let={pet} label="Type"><%= pet.type %></:col>
+  <:col :let={pet} label="Type"><%= pet.type.name %></:col>
   <:col :let={pet} label="Sex"><%= pet.sex %></:col>
   <:action :let={pet}>
     <div class="sr-only">
