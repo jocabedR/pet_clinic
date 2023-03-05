@@ -7,3 +7,10 @@ alias PetClinic.PetClinicServer.PetType
 alias PetClinic.PetClinicServer.Vet
 alias PetClinic.PetClinicServer.Owner
 alias PetClinic.PetClinicServer.ExpertSpeciality
+
+alias PetClinic.PetClinicAppointmentService.Appointment
+alias PetClinic.PetClinicAppointmentService.AppointmentSchedule
+alias PetClinic.PetClinicAppointmentService.VetSchedule
+
+import PetClinic.PetClinicServer
+import PetClinic.AppointmentService

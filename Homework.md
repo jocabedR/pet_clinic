@@ -648,4 +648,98 @@ SELECT p0."id", p0."name", p0."inserted_at", p0."updated_at", e1."vet_id"::bigin
   inserted_at: ~N[2023-03-01 00:14:08],
   updated_at: ~N[2023-03-01 00:14:08]
 }
+
+
+## Appointment Service
+iex> new_vet_schedules(2, 2, ~T[08:00:00], ~T[10:00:00])
+%{
+  %PetClinic.PetClinicAppointmentService.VetSchedule{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "vet_schedules">,
+    id: 13,
+    day_of_week: 2,
+    end: ~T[10:00:00],
+    start: ~T[08:00:00],
+    vet_id: 2,
+    vet: #Ecto.Association.NotLoaded<association :vet is not loaded>,
+    inserted_at: ~N[2023-03-05 22:31:30],
+    updated_at: ~N[2023-03-05 22:31:30]
+  } => [
+    %PetClinic.PetClinicAppointmentService.AppointmentSchedule{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "appointment_schedules">,
+      id: 38,
+      end: ~T[08:30:00],
+      start: ~T[08:00:00],
+      vet_schedule_id: 13,
+      vet_schedule: #Ecto.Association.NotLoaded<association :vet_schedule is not loaded>,
+      inserted_at: ~N[2023-03-05 22:31:31],
+      updated_at: ~N[2023-03-05 22:31:31]
+    },
+    %PetClinic.PetClinicAppointmentService.AppointmentSchedule{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "appointment_schedules">,
+      id: 39,
+      end: ~T[09:00:00],
+      start: ~T[08:30:00],
+      vet_schedule_id: 13,
+      vet_schedule: #Ecto.Association.NotLoaded<association :vet_schedule is not loaded>,
+      inserted_at: ~N[2023-03-05 22:31:31],
+      updated_at: ~N[2023-03-05 22:31:31]
+    },
+    %PetClinic.PetClinicAppointmentService.AppointmentSchedule{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "appointment_schedules">,
+      id: 40,
+      end: ~T[09:30:00],
+      start: ~T[09:00:00],
+      vet_schedule_id: 13,
+      vet_schedule: #Ecto.Association.NotLoaded<association :vet_schedule is not loaded>,
+      inserted_at: ~N[2023-03-05 22:31:31],
+      updated_at: ~N[2023-03-05 22:31:31]
+    },
+    %PetClinic.PetClinicAppointmentService.AppointmentSchedule{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "appointment_schedules">,
+      id: 41,
+      end: ~T[10:00:00],
+      start: ~T[09:30:00],
+      vet_schedule_id: 13,
+      vet_schedule: #Ecto.Association.NotLoaded<association :vet_schedule is not loaded>,
+      inserted_at: ~N[2023-03-05 22:31:31],
+      updated_at: ~N[2023-03-05 22:31:31]
+    }
+  ]
+}
+iex> get_vet_availability(2, ~D[2023-02-27], ~D[2023-03-03])
+[
+  {~D[2023-02-27],
+   [
+     [38, ~T[08:00:00]],
+     [39, ~T[08:30:00]],
+     [40, ~T[09:00:00]],
+     [41, ~T[09:30:00]]
+   ]},
+  {~D[2023-02-28], []},
+  {~D[2023-03-01], []},
+  {~D[2023-03-02], []},
+  {~D[2023-03-03], []}
+]
+iex> schedule_appointment(2, 1, ~D[2023-02-27], 41)         
+ %PetClinic.PetClinicAppointmentService.Appointment{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "appointments">,
+   id: 7,
+   date: ~D[2023-02-27],
+   appointment_schedule_id: 41,
+   appointment_schedule: #Ecto.Association.NotLoaded<association :appointment_schedule is not loaded>,
+   vet_id: 2,
+   vet: #Ecto.Association.NotLoaded<association :vet is not loaded>,
+   pet_id: 1,
+   pet: #Ecto.Association.NotLoaded<association :pet is not loaded>,
+   inserted_at: ~N[2023-03-05 22:39:47],
+   updated_at: ~N[2023-03-05 22:39:47]
+ }}
+
+iex> schedule_appointment(2, 1, ~D[2023-02-27], 41)
+{:error, "The appointment schedule is unavailable."}
+iex(10)> schedule_appointment(3, 1, ~D[2023-02-27], 41)
+{:error, "The work schedule don't belongs to the expert."}
+iex(15)> schedule_appointment(2, 1, ~D[2023-02-26], 41)
+{:error,
+ "Date's day of the week, is not the same that appointment schedule day."}
 ```
